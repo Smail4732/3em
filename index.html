@@ -304,7 +304,7 @@ function finish(){
   (sc>=10?SFX.win:SFX.lose)();saveLB(sc,ok);drawCert(sc,s);
   if(sc>=10){var e=["🎉","⭐","🎊","✨"];for(var k=0;k<28;k++){(function(k){var d=document.createElement("div");d.className="cf";d.textContent=e[k%4];d.style.left=Math.random()*95+"%";d.style.animationDelay=Math.random()*1.5+"s";document.body.appendChild(d);setTimeout(function(){d.remove()},5000)})(k)}}
 }
-var FORM_URL="https://formspree.io/f/xkjoydbk",lastData={};
+var FORM_URL="https://script.google.com/macros/s/AKfycbxkIGl5xK6arqHHcJ1GxhrRySxGN4L_-R8QHgjZI7lauIQRa3BkDeuGlYf8gzHiivv3_Q/exec",lastData={};
 function sendResult(){
   var el=$("snd");el.className="fb";el.style.background="#ede9fe";el.style.color="#4c1d95";
   el.textContent="⏳ جارٍ إرسال الإجابات الكاملة إلى الأستاذ...";$("rt").classList.add("hide");
@@ -320,8 +320,8 @@ function sendResult(){
     $("rt").classList.remove("hide");
   };
   try{
-    fetch(FORM_URL,{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify(lastData)})
-    .then(function(r){if(r.ok)okf();else bad()}).catch(bad);
+    var body=new URLSearchParams();Object.keys(lastData).forEach(function(k){body.append(k,lastData[k])});
+    fetch(FORM_URL,{method:"POST",mode:"no-cors",body:body}).then(function(){okf()}).catch(bad);
   }catch(e){bad()}
 }
 $("rt").onclick=sendResult;
